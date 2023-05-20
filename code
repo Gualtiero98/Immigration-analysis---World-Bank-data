@@ -1,0 +1,37 @@
+import pandas as pd
+df = pd.read_csv("migration.csv")
+df = df[["Year", "Country", "International migrants"]]
+df.Year
+#1990 to 2020
+df = df[df.Year.isin(years_of_focus)]
+countries = ["United States", "Western Europe", "Australia", "China", "India", "Russia", "Eastern Europe", "High-income countries"]
+df.Country
+df = df[df.Country.isin(countries)]
+df.set_index(["Country", "Year"], inplace = True)
+df = df.unstack()
+df = df.T
+df.index
+df.index.get_level_values(1)
+df.index = df.index.get_level_values(1)
+
+import matplotlib.pyplot as plt
+fix, ax = plt.subplots(6,1, sharex = True)
+df["High-income countries"].plot(figsize = (12, 8), marker = "o", ax = ax [0])
+df["China"].plot(figsize = (12, 8), marker = "o", ax = ax [1])
+df["Russia"].plot(figsize = (12, 8), marker = "o", ax = ax [1])
+
+df["Western Europe"].plot(figsize = (12, 8), marker = "o", ax = ax [2])
+df["United States"].plot(figsize = (12, 8), marker = "o", ax = ax [2])
+
+df["Australia"].plot(figsize = (12, 8), marker = "o", ax = ax [3])
+df["India"].plot(figsize = (12, 8), marker = "o", ax = ax [4])
+df["Eastern Europe"].plot(figsize = (12, 8), marker = "o", ax = ax [5])
+
+ax[0].legend()
+ax[1].legend()
+ax[2].legend()
+ax[3].legend()
+ax[4].legend()
+ax[5].legend()
+plt.suptitle("Total number of international migrants (1990 - 2020)")
+plt.show()
